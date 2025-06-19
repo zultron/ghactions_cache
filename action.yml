@@ -26,6 +26,9 @@ inputs:
     description: 'Check if a cache entry exists for the given input(s) (key, restore-keys) without downloading the cache'
     default: 'false'
     required: false
+  job-status:
+    description: 'Workaround to pass job status to post job step. This variable is not intended for manual setting'
+    default: ${{ job.status }}
   save-always:
     description: 'Run the post step to save the cache even if another step before fails'
     default: 'false'
@@ -37,7 +40,6 @@ runs:
   using: 'node20'
   main: 'dist/restore/index.js'
   post: 'dist/save/index.js'
-  post-if: "success() || github.event.inputs.save-always"
 branding:
   icon: 'archive'
   color: 'gray-dark'

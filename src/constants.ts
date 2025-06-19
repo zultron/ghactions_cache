@@ -5,7 +5,9 @@ export enum Inputs {
     UploadChunkSize = "upload-chunk-size", // Input for cache, save action
     EnableCrossOsArchive = "enableCrossOsArchive", // Input for cache, restore, save action
     FailOnCacheMiss = "fail-on-cache-miss", // Input for cache, restore action
-    LookupOnly = "lookup-only" // Input for cache, restore action
+    LookupOnly = "lookup-only", // Input for cache, restore action
+    JobStatus = "job-status", // Input for cache, save action
+    SaveAlways = "save-always" // Input for cache, save action
 }
 
 export enum Outputs {

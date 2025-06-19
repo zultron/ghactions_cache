@@ -64911,7 +64911,9 @@ var Inputs;
     Inputs["UploadChunkSize"] = "upload-chunk-size";
     Inputs["EnableCrossOsArchive"] = "enableCrossOsArchive";
     Inputs["FailOnCacheMiss"] = "fail-on-cache-miss";
-    Inputs["LookupOnly"] = "lookup-only"; // Input for cache, restore action
+    Inputs["LookupOnly"] = "lookup-only";
+    Inputs["JobStatus"] = "job-status";
+    Inputs["SaveAlways"] = "save-always"; // Input for cache, save action
 })(Inputs = exports.Inputs || (exports.Inputs = {}));
 var Outputs;
 (function (Outputs) {
@@ -64985,6 +64987,12 @@ const utils = __importStar(__nccwpck_require__(8270));
 process.on("uncaughtException", e => utils.logWarning(e.message));
 function saveImpl(stateProvider) {
     return __awaiter(this, void 0, void 0, function* () {
+        const jobStatus = core.getInput(constants_1.Inputs.JobStatus);
+        const saveAlways = utils.getInputAsBool(constants_1.Inputs.SaveAlways);
+        if (jobStatus !== "success" && jobStatus !== "" && !saveAlways) {
+            utils.logWarning(`Job status is "${jobStatus}"; not saving cache.`);
+            return;
+        }
         let cacheId = -1;
         try {
             if (!utils.isCacheFeatureAvailable()) {
