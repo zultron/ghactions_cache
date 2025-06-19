@@ -17,6 +17,13 @@ process.on("uncaughtException", e => utils.logWarning(e.message));
 export async function saveImpl(
     stateProvider: IStateProvider
 ): Promise<number | void> {
+    const jobStatus = core.getInput(Inputs.JobStatus);
+    const saveAlways = utils.getInputAsBool(Inputs.SaveAlways);
+    if (jobStatus !== "success" && !saveAlways) {
+        utils.logWarning(`Job status is "${jobStatus}"; not saving cache.`);
+        return;
+    }
+
     let cacheId = -1;
     try {
         if (!utils.isCacheFeatureAvailable()) {
