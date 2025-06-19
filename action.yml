@@ -29,11 +29,7 @@ inputs:
   save-always:
     description: 'Run the post step to save the cache even if another step before fails'
     default: 'false'
-    required: false
-    deprecationMessage: |
-      save-always does not work as intended and will be removed in a future release.
-      A separate `actions/cache/restore` step should be used instead.
-      See https://github.com/actions/cache/tree/main/save#always-save-cache for more details.
+    required: false    
 outputs:
   cache-hit:
     description: 'A boolean value to indicate an exact match was found for the primary key'
@@ -41,7 +37,7 @@ runs:
   using: 'node20'
   main: 'dist/restore/index.js'
   post: 'dist/save/index.js'
-  post-if: "success()"
+  post-if: "success() || github.event.inputs.save-always"
 branding:
   icon: 'archive'
   color: 'gray-dark'

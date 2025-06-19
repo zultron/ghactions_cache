@@ -35,6 +35,7 @@ Read more about the change & access the migration guide: [reference to the annou
 
 * Integrated with the new cache service (v2) APIs.
 * Updated to node 20
+* Added a `save-always` flag to save the cache even if a prior step fails
 
 ### v3
 

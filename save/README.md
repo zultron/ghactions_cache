@@ -70,14 +70,7 @@ with:
 
 ### Always save cache
 
-There are instances where some flaky test cases would fail the entire workflow and users would get frustrated because the builds would run for hours and the cache couldn't be saved as the workflow failed in between.
-For such use-cases, users now have the ability to use the `actions/cache/save` action to save the cache by using an [`always()`](https://docs.github.com/actions/writing-workflows/choosing-what-your-workflow-does/expressions#always) condition.
-This way the cache will always be saved if generated, or a warning will be generated that nothing is found on the cache path. Users can also use the `if` condition to only execute the `actions/cache/save` action depending on the output of previous steps. This way they get more control of when to save the cache.
-
-To avoid saving a cache that already exists, the `cache-hit` output from a restore step should be checked.
-
-The `cache-primary-key` output from the restore step should also be used to ensure
-the cache key does not change during the build if it's calculated based on file contents.
+There are instances where some flaky test cases would fail the entire workflow and users would get frustrated because the builds would run for hours and the cache couldn't be saved as the workflow failed in between. For such use-cases, users now have the ability to use the `actions/cache/save` action to save the cache by using an `if: always()` condition. This way the cache will always be saved if generated, or a warning will be generated that nothing is found on the cache path. Users can also use the `if` condition to only execute the `actions/cache/save` action depending on the output of previous steps. This way they get more control of when to save the cache.
 
 Here's an example where we imagine we're calculating a lot of prime numbers and want to cache them:
 
